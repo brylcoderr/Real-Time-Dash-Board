@@ -1,5 +1,4 @@
 I've implemented a real-time crypto analytics dashboard using the CoinGecko API. Key features:
-
 1. Real market data:
 <ul>
 <li>Top cryptocurrencies by market cap</li>
