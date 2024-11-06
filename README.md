@@ -12,10 +12,10 @@ Type-safe implementation with TypeScript
 
 The dashboard includes:
 
-Active users count
-Total page views
-Average session duration
-Bounce rate
-Real-time page views chart
-Session duration chart
+Active users count<br>
+Total page views<br>
+Average session duration<br>
+Bounce rate<br>
+Real-time page views chart<br>
+Session duration chart<br>
 The data is simulated but the structure is ready to be connected to a real ClickHouse backend. Just replace the useAnalytics hook implementation with actual API calls when you have the backend ready.
