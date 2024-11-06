@@ -1,6 +1,6 @@
 import React from 'react';
 import { Users, Eye, Clock, ArrowUpDown } from 'lucide-react';
-import { DashboardCard } from './components/DashBoardCard';
+import { DashboardCard } from './components/DashboardCard';
 import { LineChart } from './components/LineChart';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { useAnalytics } from './hooks/useAnalytics';
