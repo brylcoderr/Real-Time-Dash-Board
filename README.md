@@ -1,21 +1,30 @@
-I've created a beautiful and functional real-time analytics dashboard with the following features:
+I've implemented a real-time crypto analytics dashboard using the CoinGecko API. Key features:
 
-Real-time data simulation (updates every 5 seconds)
-Key metrics cards with trend indicators
-Interactive line charts for page views and session duration
-Responsive design that works on all screen sizes
-Clean, modern UI with smooth animations
-Type-safe implementation with TypeScript
+1. Real market data:
+<ul>
+Top cryptocurrencies by market cap
+Global market statistics
+7-day price history for Bitcoin
+24-hour price changes
+</ul>  
+2. Auto-updating:
+<ul>
+Data refreshes every minute
+Last updated timestamp
+Smooth transitions between updates
+</ul> 
+3. Comprehensive views:
+<ul>
+Market overview cards
+Price chart
+Top coins list with key metrics
+</ul> 
+4. Error handling:
+<ul>
+Graceful fallbacks for API failures
+Loading states
+Type-safe data handling
+</ul> 
 
-![image](https://github.com/user-attachments/assets/936b22f2-7bc6-4f3d-b5bf-f115ade47897)
 
-
-The dashboard includes:
-
-Active users count<br>
-Total page views<br>
-Average session duration<br>
-Bounce rate<br>
-Real-time page views chart<br>
-Session duration chart<br>
-The data is simulated but the structure is ready to be connected to a real ClickHouse backend. Just replace the useAnalytics hook implementation with actual API calls when you have the backend ready.
+![image](https://github.com/user-attachments/assets/2f889547-c2dc-406c-b86e-c18ab3f080c6)
