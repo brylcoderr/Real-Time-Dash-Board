@@ -2,28 +2,28 @@ I've implemented a real-time crypto analytics dashboard using the CoinGecko API.
 
 1. Real market data:
 <ul>
-Top cryptocurrencies by market cap
-Global market statistics
-7-day price history for Bitcoin
-24-hour price changes
+<li>Top cryptocurrencies by market cap</li>
+<li>Global market statistics</li>
+<li>7-day price history for Bitcoin</li>
+<li>24-hour price changes</li>
 </ul>  
 2. Auto-updating:
 <ul>
-Data refreshes every minute
-Last updated timestamp
-Smooth transitions between updates
+<li>Data refreshes every minute</li>
+<li>Last updated timestamp</li>
+<li>Smooth transitions between updates</li>
 </ul> 
 3. Comprehensive views:
 <ul>
-Market overview cards
-Price chart
-Top coins list with key metrics
+<li>Market overview cards</li>
+<li>Price chart</li>
+<li>Top coins list with key metrics</li>
 </ul> 
 4. Error handling:
 <ul>
-Graceful fallbacks for API failures
-Loading states
-Type-safe data handling
+<li>Graceful fallbacks for API failures</li>
+<li>Loading states</li>
+<li>Type-safe data handling</li>
 </ul> 
 
 
