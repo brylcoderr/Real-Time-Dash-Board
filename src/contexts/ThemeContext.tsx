@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import type { Theme } from '../types';
 
 const themes: Record<string, Theme> = {
   light: {
-    name: 'Light',
+    name: 'light',
     background: 'bg-gray-50',
     card: 'bg-white',
     cardHover: 'hover:bg-gray-50',
@@ -11,65 +11,43 @@ const themes: Record<string, Theme> = {
     secondary: 'text-purple-600',
     text: 'text-gray-900',
     textSecondary: 'text-gray-500',
-    border: 'border-gray-100',
-    chartLine: '#6366F1',
+    border: 'border-gray-200',
+    chartLine: 'stroke-blue-500',
     success: 'text-green-600',
     error: 'text-red-600'
   },
   dark: {
-    name: 'Dark',
+    name: 'dark',
     background: 'bg-gray-900',
     card: 'bg-gray-800',
     cardHover: 'hover:bg-gray-700',
     primary: 'text-blue-400',
     secondary: 'text-purple-400',
     text: 'text-white',
-    textSecondary: 'text-white',
+    textSecondary: 'text-gray-400',
     border: 'border-gray-700',
-    chartLine: '#818CF8',
+    chartLine: 'stroke-blue-400',
     success: 'text-green-400',
     error: 'text-red-400'
-  },
-  sunset: {
-    name: 'Sunset',
-    background: 'bg-orange-50',
-    card: 'bg-white',
-    cardHover: 'hover:bg-orange-50',
-    primary: 'text-orange-600',
-    secondary: 'text-pink-600',
-    text: 'text-gray-900',
-    textSecondary: 'text-gray-600',
-    border: 'border-orange-100',
-    chartLine: '#EA580C',
-    success: 'text-teal-600',
-    error: 'text-red-600'
   }
 };
 
 interface ThemeContextType {
   theme: Theme;
-  setThemeByName: (name: string) => void;
-  availableThemes: string[];
+  toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(themes.light);
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
 
-  const setThemeByName = (name: string) => {
-    const newTheme = themes[name];
-    if (newTheme) {
-      setTheme(newTheme);
-    }
+  const toggleTheme = () => {
+    setCurrentTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   return (
-    <ThemeContext.Provider value={{ 
-      theme, 
-      setThemeByName,
-      availableThemes: Object.keys(themes)
-    }}>
+    <ThemeContext.Provider value={{ theme: themes[currentTheme], toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -77,7 +55,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
 export function useTheme() {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;

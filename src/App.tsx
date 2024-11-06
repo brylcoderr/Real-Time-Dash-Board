@@ -1,25 +1,21 @@
 import React from 'react';
-import { Users, Eye, Clock, ArrowUpDown } from 'lucide-react';
+import { TrendingUp, DollarSign, Coins, BarChart } from 'lucide-react';
 import { DashboardCard } from './components/DashboardCard';
 import { LineChart } from './components/LineChart';
+import { CoinList } from './components/CoinList';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
-import { useAnalytics } from './hooks/useAnalytics';
+import { useCryptoData } from './hooks/useCryptoData';
 import { useTheme } from './contexts/ThemeContext';
 
 function App() {
-  const { summary, pageViews } = useAnalytics();
+  const { coins, summary, priceHistory } = useCryptoData();
   const { theme } = useTheme();
-
-  const pageViewData = pageViews.map(view => ({
-    timestamp: view.timestamp,
-    value: 1,
-  }));
 
   return (
     <div className={`min-h-screen ${theme.background}`}>
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className={`text-3xl font-bold ${theme.text}`}>Analytics Dashboard</h1>
+          <h1 className={`text-3xl font-bold ${theme.text}`}>Crypto Analytics</h1>
           <div className="flex items-center gap-4">
             <div className={theme.textSecondary}>
               Last updated: {new Date().toLocaleTimeString()}
@@ -30,43 +26,33 @@ function App() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <DashboardCard
-            title="Active Users"
-            value={summary.activeUsers}
-            change={12}
-            icon={<Users className={theme.primary} />}
+            title="Total Market Cap"
+            value={`$${(summary.totalMarketCap / 1e12).toFixed(2)}T`}
+            icon={<TrendingUp className={theme.primary} />}
           />
           <DashboardCard
-            title="Page Views"
-            value={summary.totalPageViews}
-            change={8}
-            icon={<Eye className={theme.success} />}
+            title="24h Volume"
+            value={`$${(summary.totalVolume / 1e9).toFixed(2)}B`}
+            icon={<DollarSign className={theme.success} />}
           />
           <DashboardCard
-            title="Avg. Session Duration"
-            value={`${Math.floor(summary.averageSessionDuration / 60)}m ${summary.averageSessionDuration % 60}s`}
-            change={-5}
-            icon={<Clock className={theme.secondary} />}
+            title="Active Currencies"
+            value={summary.activeCurrencies}
+            icon={<Coins className={theme.secondary} />}
           />
           <DashboardCard
-            title="Bounce Rate"
-            value={`${summary.bounceRate}%`}
-            change={-2}
-            icon={<ArrowUpDown className={theme.error} />}
+            title="BTC Dominance"
+            value={`${summary.btcDominance.toFixed(2)}%`}
+            icon={<BarChart className={theme.error} />}
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <LineChart
-            data={pageViewData}
-            title="Real-time Page Views"
+            data={priceHistory}
+            title="Bitcoin Price (7d)"
           />
-          <LineChart
-            data={pageViews.map(view => ({
-              timestamp: view.timestamp,
-              value: view.duration,
-            }))}
-            title="Session Duration (seconds)"
-          />
+          <CoinList coins={coins.slice(0, 5)} />
         </div>
       </div>
     </div>

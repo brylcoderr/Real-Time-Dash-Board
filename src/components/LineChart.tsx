@@ -1,15 +1,11 @@
 import React from 'react';
-import { LineChart as RechartsLineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart as RechartsLineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { format } from 'date-fns';
 import { useTheme } from '../contexts/ThemeContext';
-
-interface DataPoint {
-  timestamp: number;
-  value: number;
-}
+import type { PricePoint } from '../types';
 
 interface LineChartProps {
-  data: DataPoint[];
+  data: PricePoint[];
   title: string;
 }
 
@@ -21,25 +17,32 @@ export function LineChart({ data, title }: LineChartProps) {
       <h3 className={`text-lg font-semibold mb-4 ${theme.text}`}>{title}</h3>
       <div className="h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
-          <RechartsLineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke={theme.border} />
+          <RechartsLineChart data={data}>
             <XAxis
               dataKey="timestamp"
-              tickFormatter={(timestamp) => format(timestamp, 'HH:mm')}
-              stroke={theme.textSecondary}
+              tickFormatter={(timestamp) => format(timestamp, 'MMM d')}
+              stroke={theme.name === 'dark' ? '#9CA3AF' : '#6B7280'}
             />
-            <YAxis stroke={theme.textSecondary} />
+            <YAxis
+              stroke={theme.name === 'dark' ? '#9CA3AF' : '#6B7280'}
+              tickFormatter={(value) => `$${value.toLocaleString()}`}
+            />
             <Tooltip
-              labelFormatter={(timestamp) => format(timestamp, 'HH:mm:ss')}
-              contentStyle={{ backgroundColor: theme.card, border: `1px solid ${theme.border}` }}
+              contentStyle={{
+                backgroundColor: theme.name === 'dark' ? '#1F2937' : '#FFFFFF',
+                border: 'none',
+                borderRadius: '0.5rem',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+              }}
+              labelFormatter={(timestamp) => format(timestamp, 'MMM d, yyyy HH:mm')}
+              formatter={(value: number) => [`$${value.toLocaleString()}`, 'Price']}
             />
             <Line
               type="monotone"
               dataKey="value"
-              stroke={theme.chartLine}
+              stroke={theme.name === 'dark' ? '#60A5FA' : '#3B82F6'}
               strokeWidth={2}
               dot={false}
-              activeDot={{ r: 4 }}
             />
           </RechartsLineChart>
         </ResponsiveContainer>
